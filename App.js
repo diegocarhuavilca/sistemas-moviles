@@ -1,20 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from "react";
+import { FlatList, Text, View, Image } from "react-native";
+import styles from "./styles";
+import { recipes } from "./data/recipes";
+import { SearchBar } from "@rneui/themed";
 
 export default function App() {
-  return (
+  const recipesArray = recipes;
+  const [search, setSearch] = useState("");
+
+  const updateSearch = (search) => {
+    setSearch(search);
+  };
+
+  const renderRecipes = ({ item }) => (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Image style={styles.photo} source={{ uri: item.photo_url }} />
+      <Text style={styles.title}>{item.title}</Text>
+    </View>
+  );
+
+  return (
+    <View style={styles.viewContainer}>
+      <SearchBar
+        placeholder="Buscar receta"
+        onChangeText={updateSearch}
+        value={search}
+        lightTheme={true}
+      />
+      <FlatList
+        vertical
+        showsVerticalScrollIndicator={false}
+        data={recipesArray}
+        renderItem={renderRecipes}
+        keyExtractor={(item) => `${item.recipeId}`}
+      />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
