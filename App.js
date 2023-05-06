@@ -8,8 +8,18 @@ export default function App() {
   const recipesArray = recipes;
   const [search, setSearch] = useState("");
 
+  const [listaRecetas, setListaRecetas] = useState(recipes);
+
   const updateSearch = (search) => {
     setSearch(search);
+    if(search === ''){
+      setListaRecetas(recipes);
+    }else{
+      let recetasAux = listaRecetas.filter(({ title }) => {
+        return title.toLowerCase().includes(search.toLowerCase());
+      });
+      setListaRecetas(recetasAux);
+    }
   };
 
   const renderRecipes = ({ item }) => (
@@ -30,7 +40,7 @@ export default function App() {
       <FlatList
         vertical
         showsVerticalScrollIndicator={false}
-        data={recipesArray}
+        data={listaRecetas}
         renderItem={renderRecipes}
         keyExtractor={(item) => `${item.recipeId}`}
       />
