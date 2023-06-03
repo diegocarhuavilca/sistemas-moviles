@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   viewContainer : {
-    marginTop: 50
   }
 });
 
