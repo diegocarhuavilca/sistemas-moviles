@@ -1,7 +1,16 @@
 import React from "react";
-import { View, Text, Image, StyleSheet,Button,ScrollView,TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import Swiper from 'react-native-swiper';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Button,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
+import Swiper from "react-native-swiper";
+import Layout from "../layout/LayoutMain";
 
 function DetailsScreen({ navigation, route }) {
   const { item } = route.params;
@@ -21,31 +30,32 @@ function DetailsScreen({ navigation, route }) {
   }, [navigation]);
 
   return (
-    <ScrollView>
-    <View style={styles.container}>
-      <Image style={styles.image} source={{ uri: item.photo_url }} />
-      <Text style={styles.title}>{item.title}</Text>
-      <Text style={styles.description}>{item.description}</Text>
-      <Text style={styles.heading}>Ingredients:</Text>
-      {item.ingredients.map((ingredient, index) => (
-        <Text
-          key={index}
-          style={styles.listItem}
-        >{`\u2022 ${ingredient}`}</Text>
-      ))}
-       <View style={styles.containerCarousel}>
-       <Text style={styles.heading}>Recetas Acabadas:</Text>
-       <Swiper showsPagination={true} loop={true}>
-        {item.photosArray.map((photo) => (
-          <View key={photo} style={styles.slide}>
-            <Image source={{ uri:photo  }} style={styles.imageCarousel} />
+    <Layout>
+      <ScrollView>
+        <View style={styles.container}>
+          <Image style={styles.image} source={{ uri: item.photo_url }} />
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.description}>{item.description}</Text>
+          <Text style={styles.heading}>Ingredients:</Text>
+          {item.ingredients.map((ingredient, index) => (
+            <Text
+              key={index}
+              style={styles.listItem}
+            >{`\u2022 ${ingredient}`}</Text>
+          ))}
+          <View style={styles.containerCarousel}>
+            <Text style={styles.heading}>Recetas Acabadas:</Text>
+            <Swiper showsPagination={true} loop={true}>
+              {item.photosArray.map((photo) => (
+                <View key={photo} style={styles.slide}>
+                  <Image source={{ uri: photo }} style={styles.imageCarousel} />
+                </View>
+              ))}
+            </Swiper>
           </View>
-        ))}
-      </Swiper>
-       </View>
-    </View>
-    </ScrollView>
-
+        </View>
+      </ScrollView>
+    </Layout>
   );
 }
 
@@ -55,14 +65,14 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   image: {
-    width: '100%',
+    width: "100%",
     height: 200,
-    resizeMode: 'cover',
+    resizeMode: "cover",
     marginBottom: 16,
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 8,
   },
   description: {
@@ -71,7 +81,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 8,
   },
   listItem: {
@@ -79,29 +89,29 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   slide: {
-    height: '100%',
-    backgroundColor: '#f9f9f9',
+    height: "100%",
+    backgroundColor: "#f9f9f9",
     borderRadius: 8,
   },
   imageCarousel: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
     borderRadius: 8,
   },
   controls: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
   },
   containerCarousel: {
     height: 400,
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
-  button:{
-    marginEnd: 10
-  }
+  button: {
+    marginEnd: 10,
+  },
 });
 
 export default DetailsScreen;

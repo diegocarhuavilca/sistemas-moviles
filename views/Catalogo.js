@@ -3,6 +3,7 @@ import { FlatList, Text, View, Image, TouchableOpacity } from "react-native";
 import styles from "../styles";
 import { recipes } from "../data/recipes";
 import { SearchBar } from "@rneui/themed";
+import Layout from "../layout/LayoutMain";
 
 function Catalogo({ navigation }) {
   const recipesArray = recipes;
@@ -32,7 +33,8 @@ function Catalogo({ navigation }) {
   );
 
   return (
-    <View style={styles.viewContainer}>
+    <Layout>
+         <View style={styles.viewContainer}>
       <SearchBar
         placeholder="Buscar receta"
         onChangeText={updateSearch}
@@ -47,6 +49,8 @@ function Catalogo({ navigation }) {
         keyExtractor={(item) => `${item.recipeId}`}
       />
     </View>
+    </Layout>
+ 
   );
 }
 
