@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{ useEffect }from "react";
 import {
   View,
   Text,
@@ -11,23 +11,40 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome";
 import Swiper from "react-native-swiper";
 import Layout from "../layout/LayoutMain";
+import { useDispatch, useSelector } from "react-redux";
 
 function DetailsScreen({ navigation, route }) {
   const { item } = route.params;
-
-  const handleButtonPress = () => {
+  const dispatch = useDispatch();
+  const favorites = useSelector((state) => state.favorites);
+  const addToFavorite = () => {
+    dispatch({ type: "ADD_FAVORITE", payload: item });
     // Handle button press action
+  };
+
+  const removeFromFavorite = () => {
+    dispatch({ type: "REMOVE_FAVORITE", payload: item });
+  }
+
+  const isFavorite = (item) => {
+    return favorites.some((value) => value == item);
   };
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity style={styles.button} onPress={handleButtonPress}>
-          <Icon name="star" size={30} color="gold" />
-        </TouchableOpacity>
-      ),
+      headerRight: () => {
+        return isFavorite(item) ? (
+          <TouchableOpacity style={styles.button} onPress={removeFromFavorite}>
+            <Icon name="star" size={30} color="gold" />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity style={styles.button} onPress={addToFavorite}>
+            <Icon name="star-o" size={30} color="gold" />
+          </TouchableOpacity>
+        );
+      },
     });
-  }, [navigation]);
+  }, [navigation,favorites]);
 
   return (
     <Layout>
