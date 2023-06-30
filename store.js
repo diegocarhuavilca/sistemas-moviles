@@ -1,8 +1,10 @@
 import { createStore } from "redux";
+import { recipes } from "./data/recipes";
 
 const initialState = {
   user: null, // Initially, no user is logged in
   favorites: [],
+  recetas: [...recipes],
 };
 
 const reducer = (state = initialState, action) => {
@@ -19,12 +21,15 @@ const reducer = (state = initialState, action) => {
         favorites: [...state.favorites, action.payload],
       };
     case "REMOVE_FAVORITE":
-      let favoritesAux = state.favorites
-      let index = favoritesAux.findIndex((value) => value == action.payload)
-      if(index > -1) {
-        favoritesAux.splice(index,1)
+      let favoritesAux = state.favorites;
+      let index = favoritesAux.findIndex((value) => value == action.payload);
+      if (index > -1) {
+        favoritesAux.splice(index, 1);
       }
-      return {...state,favorites:[...favoritesAux]}
+      return { ...state, favorites: [...favoritesAux] };
+    case "AGREGAR_RECETA":
+      let recetasAux = [...state.recetas];
+      return { ...state, recetas: [...recetasAux, action.payload] };
     default:
       return state;
   }

@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 import { FlatList, Text, View, Image, TouchableOpacity } from "react-native";
 import styles from "../styles";
-import { recipes } from "../data/recipes";
 import { SearchBar } from "@rneui/themed";
+import { useSelector, useDispatch } from "react-redux";
 import Layout from "../layout/LayoutMain";
+import { useEffect } from "react";
 
 function Catalogo({ navigation }) {
-  const recipesArray = recipes;
   const [search, setSearch] = useState("");
 
-  const [listaRecetas, setListaRecetas] = useState(recipes);
+  const recetas = useSelector((state) => state.recetas);
+
+  const [listaRecetas, setListaRecetas] = useState(recetas);
+
+  useEffect(()=>{
+    setListaRecetas(recetas)
+  },[recetas])
 
   const updateSearch = (search) => {
     setSearch(search);

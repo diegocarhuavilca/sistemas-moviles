@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  Button
 } from "react-native";
 import Layout from "../layout/LayoutMain";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -17,6 +18,12 @@ const ProfileView = ({ navigation }) => {
     dispatch({ type: 'LOGOUT' });
     navigation.navigate("Catalogo")
   };
+
+  const goCrearReceta = () => {
+    navigation.navigate("CrearReceta")
+  }
+
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -31,6 +38,7 @@ const ProfileView = ({ navigation }) => {
     <Layout>
       <ScrollView>
         <View style={styles.container}>
+        <Button title="Crear receta" onPress={goCrearReceta} />
           <Image
             source={{
               uri: "https://proyecto-topicos-auxjx35m5q-rj.a.run.app/cats",
