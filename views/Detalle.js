@@ -1,4 +1,4 @@
-import React ,{ useEffect }from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   Button,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Swiper from "react-native-swiper";
@@ -17,14 +18,40 @@ function DetailsScreen({ navigation, route }) {
   const { item } = route.params;
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites);
+  const user = useSelector((state) => state.user);
+
+  const showAlert = (title, message) => {
+    Alert.alert(
+      title,
+      message,
+      [
+        {
+          text: "OK",
+          style: "default",
+        },
+      ],
+      {
+        cancelable: false,
+        alertContainerStyle: styles.alertContainer,
+        titleStyle: styles.alertTitle,
+        messageStyle: styles.alertMessage,
+      }
+    );
+  };
+
   const addToFavorite = () => {
+    if (!user) {
+      showAlert("Notificacion", "Logeate para agregar favoritos");
+      navigation.navigate("Login");
+      return;
+    }
     dispatch({ type: "ADD_FAVORITE", payload: item });
     // Handle button press action
   };
 
   const removeFromFavorite = () => {
     dispatch({ type: "REMOVE_FAVORITE", payload: item });
-  }
+  };
 
   const isFavorite = (item) => {
     return favorites.some((value) => value == item);
@@ -44,7 +71,7 @@ function DetailsScreen({ navigation, route }) {
         );
       },
     });
-  }, [navigation,favorites]);
+  }, [navigation, favorites]);
 
   return (
     <Layout>

@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
-const CrearRecetaView = () => {
+const CrearRecetaView = ({navigation}) => {
   const [nombreReceta, setNombreReceta] = useState("");
   const [ingredientes, setIngredientes] = useState([]);
   const [nombreIngrediente, setNombreIngrediente] = useState("");
@@ -52,6 +52,19 @@ const CrearRecetaView = () => {
     let ingredientesAux = ingredientes.map(
       (data) => data.nombre + " - " + data.cantidad
     );
+    if(!nombreReceta){
+      alert("Ingresa el nombre de la receta")
+      return
+    }
+    if(ingredientesAux.length == 0){
+      alert("Ingresa algun ingrediente")
+      return
+    }
+    if(pasos.length == 0){
+      alert("Ingresa algun paso")
+      return
+    }
+
     dispatch({
       type: "AGREGAR_RECETA",
       payload: {
@@ -62,6 +75,8 @@ const CrearRecetaView = () => {
         photosArray: [],
       },
     });
+    alert("Receta creada")
+    navigation.navigate("Catalogo")
   };
 
   const renderIngrediente = ({ item }) => (

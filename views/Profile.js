@@ -31,6 +31,9 @@ const ProfileView = ({ navigation }) => {
           <Icon name="sign-out" size={30} />
         </TouchableOpacity>
       ),
+      headerLeft:()=>{
+        
+      }
     });
   }, [navigation]);
 

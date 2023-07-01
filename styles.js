@@ -35,7 +35,36 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   viewContainer : {
-  }
+  },
+  containerFavoritos: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  textFavoritos: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  loginContainerFavoritos: {
+    alignItems: "center",
+  },
+  messageFavoritos: {
+    fontSize: 18,
+    marginBottom: 16,
+    textAlign: "center",
+  },
+  buttonFavoritos:{
+    backgroundColor: '#FFA500',
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    alignItems: 'center',
+  },
+  buttonTextFavoritos: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
 });
 
 export default styles;
